@@ -26,6 +26,6 @@ return [
     'impersonate'   => [
         'enabled'  => true,
         'guard'    => 'web',
-        'redirect' => '/'
+        'redirect' => '/admin'
     ]
 ];

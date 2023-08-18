@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\BuatAkun;
+use App\Listeners\BuatAkunUser;
+use App\Models\Biodata;
+use App\Observers\PasFotoObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -15,8 +19,15 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            // ... other providers
+            \SocialiteProviders\Google\GoogleExtendSocialite::class . '@handle',
+        ],
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        BuatAkun::class => [
+            BuatAkunUser::class
         ],
     ];
 
@@ -25,7 +36,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Biodata::observe(PasFotoObserver::class);
     }
 
     /**

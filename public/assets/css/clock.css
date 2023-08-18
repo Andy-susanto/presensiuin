@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap");
+
+.dot::before {
+	box-shadow: 0 0 20px var(--c), 0 0 60px var(--c);
+}
+
+.pie {
+	--p: 20;
+}
+
+.pie:before {
+	background: radial-gradient(farthest-side, var(--c) 98%, #0000) top/8px 8px
+			no-repeat,
+		conic-gradient(var(--c) calc(var(--p) * 1%), #0000 0);
+	-webkit-mask: radial-gradient(
+		farthest-side,
+		#0000 calc(99% - 8px),
+		#000 calc(100% - 8px)
+	);
+	mask: radial-gradient(
+		farthest-side,
+		#0000 calc(99% - 8px),
+		#000 calc(100% - 8px)
+	);
+}
+
+.no-round:before {
+	background-size: 0 0, auto;
+}
+.no-round:after {
+	content: none;
+}
