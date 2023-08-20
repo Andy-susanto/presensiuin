@@ -60,6 +60,7 @@ class UserResource extends phpsaUserResource
                     ->label(strval(__('filament-authentication::filament-authentication.filter.verified')))
                     ->nullable(),
             ])
+            
             ->prependActions([
                 ImpersonateLink::make(),
             ]);
