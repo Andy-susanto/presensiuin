@@ -16,7 +16,6 @@ jobs:
         run: composer update --ignore-platform-reqs
       - name: NPM Install
         run: npm install && npm run build
-        run: composer update --ignore-platform-reqs
       - name: Generate key
         run: php artisan key:generate
       - name: Directory Permissions
