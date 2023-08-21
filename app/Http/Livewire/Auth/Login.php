@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Auth;
 
-use \Filament\http\Livewire\Auth\Login as filamentLogin;
+use Filament\http\Livewire\Auth\Login as filamentLogin;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Checkbox;
