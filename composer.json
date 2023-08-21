@@ -30,7 +30,7 @@
         "socialiteproviders/google": "^4.1",
         "solution-forest/filament-firewall": "^1.0",
         "webbingbrasil/filament-advancedfilter": "^1.2",
-        "z3d0x/filament-logger": "dev-main"
+        "z3d0x/filament-logger": "^0.5"
     },
     "require-dev": {
         "doctrine/dbal": "^3.6",
