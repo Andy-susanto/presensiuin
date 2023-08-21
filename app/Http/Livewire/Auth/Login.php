@@ -2,13 +2,13 @@
 
 namespace App\Http\Livewire\Auth;
 
-use Filament\http\Livewire\Auth\Login as filamentLogin;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\TextInput;
 use Filament\Http\Responses\Auth\Contracts\LoginResponse;
 use Illuminate\Validation\ValidationException;
+use Filament\Http\Livewire\Auth\Login as filamentLogin;
 
 class Login extends filamentLogin
 {
