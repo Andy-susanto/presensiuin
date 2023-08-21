@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class StatuskerjaResource extends Resource
 {
-    protected static ?string $model = Statuskerja::class;
+    protected static ?string $model = StatusKerja::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
