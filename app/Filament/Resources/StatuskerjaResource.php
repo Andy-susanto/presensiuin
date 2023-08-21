@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\StatuskerjaResource\Pages;
 use App\Filament\Resources\StatuskerjaResource\RelationManagers;
-use App\Models\Statuskerja;
+use App\Models\StatusKerja;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -13,7 +13,7 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class StatuskerjaResource extends Resource
+class StatusKerjaResource extends Resource
 {
     protected static ?string $model = StatusKerja::class;
 
