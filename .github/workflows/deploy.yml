@@ -21,7 +21,7 @@ jobs:
       # - name: Directory Permissions
       #   run: chmod -R 775 storage
       - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.3.4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
