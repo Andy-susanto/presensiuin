@@ -21,6 +21,7 @@ class PegawaiResource extends Resource
     protected static ?string $model = Pegawai::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationLabel = 'Pegawai';
 
     protected static function getNavigationGroup(): ?string
     {
@@ -104,7 +105,7 @@ class PegawaiResource extends Resource
             ->actions([
                 Tables\Actions\Action::make('create_user')
                     ->label('Buat Akun')
-                    ->url(fn (Pegawai $record): string => route('users.create.akun',$record)),
+                    ->url(fn (Pegawai $record): string => route('users.create.akun', $record)),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
@@ -112,8 +113,8 @@ class PegawaiResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
                 Tables\Actions\BulkAction::make('buat_akun')
                     ->label('Buat Akun')
-                    ->action(function(Collection $records){
-                        $records->each(function($record){
+                    ->action(function (Collection $records) {
+                        $records->each(function ($record) {
                             event(new BuatAkun($record));
                         });
                     })

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e2b129ad1f05a55606fb0adf589511b",
+    "content-hash": "a4b78692232c8092323c2c634319eaa9",
     "packages": [
         {
             "name": "akaunting/laravel-firewall",
@@ -5638,26 +5638,25 @@
         },
         {
             "name": "pxlrbt/filament-excel",
-            "version": "v2.0.0-alpha",
+            "version": "v1.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pxlrbt/filament-excel.git",
-                "reference": "22981b8f4e5d15284ecf209532458e1567878c92"
+                "reference": "771952cfb26a79fc3da0cf78c916188ccf893dcd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pxlrbt/filament-excel/zipball/22981b8f4e5d15284ecf209532458e1567878c92",
-                "reference": "22981b8f4e5d15284ecf209532458e1567878c92",
+                "url": "https://api.github.com/repos/pxlrbt/filament-excel/zipball/771952cfb26a79fc3da0cf78c916188ccf893dcd",
+                "reference": "771952cfb26a79fc3da0cf78c916188ccf893dcd",
                 "shasum": ""
             },
             "require": {
                 "anourvalar/eloquent-serialize": "^1.2",
+                "filament/filament": "^2.13.24|^3.0",
                 "maatwebsite/excel": "^3.1",
-                "php": "^8.1",
-                "spatie/laravel-package-tools": "^1.9"
+                "php": "^8.0"
             },
             "require-dev": {
-                "filament/filament": "v3.0.0-alpha100",
                 "laravel/pint": "^1.10"
             },
             "type": "library",
@@ -5694,7 +5693,7 @@
             ],
             "support": {
                 "issues": "https://github.com/pxlrbt/filament-excel/issues",
-                "source": "https://github.com/pxlrbt/filament-excel/tree/v2.0.0-alpha"
+                "source": "https://github.com/pxlrbt/filament-excel/tree/v1.1.13"
             },
             "funding": [
                 {
@@ -5702,7 +5701,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-05-30T20:16:38+00:00"
+            "time": "2023-07-05T19:06:22+00:00"
         },
         {
             "name": "ralouphie/getallheaders",

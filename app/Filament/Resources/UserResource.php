@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Models\User;
 use Phpsa\FilamentAuthentication\Resources\UserResource as phpsaUserResource;
 use Filament\Resources\Table;
+use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -33,7 +34,7 @@ class UserResource extends phpsaUserResource
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable()
-                    ->description(fn(User $record): string => $record->getRawOriginal('name'),'above')
+                    ->description(fn (User $record): string => $record->getRawOriginal('name'), 'above')
                     ->label(strval(__('filament-authentication::filament-authentication.field.user.name'))),
                 TextColumn::make('email')
                     ->searchable()
@@ -60,7 +61,12 @@ class UserResource extends phpsaUserResource
                     ->label(strval(__('filament-authentication::filament-authentication.filter.verified')))
                     ->nullable(),
             ])
-            
+
+            ->bulkActions([
+                ExportBulkAction::make(),
+                DeleteBulkAction::make()
+            ])
+
             ->prependActions([
                 ImpersonateLink::make(),
             ]);

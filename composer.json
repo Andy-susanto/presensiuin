@@ -26,7 +26,7 @@
         "laravolt/avatar": "^5.0",
         "owenvoke/blade-fontawesome": "^2.3",
         "phpsa/filament-authentication": "^2.4",
-        "pxlrbt/filament-excel": "^2.0",
+        "pxlrbt/filament-excel": "1.x",
         "socialiteproviders/google": "^4.1",
         "solution-forest/filament-firewall": "^1.0",
         "webbingbrasil/filament-advancedfilter": "^1.2",

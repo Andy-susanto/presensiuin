@@ -12,6 +12,7 @@ use Konnco\FilamentImport\Actions\ImportField;
 class ManagePegawais extends ManageRecords
 {
     protected static string $resource = PegawaiResource::class;
+    protected static ?string $title = 'Data Master Pegawai';
 
     protected function getActions(): array
     {
