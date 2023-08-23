@@ -12,35 +12,35 @@ class FirewallPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->can('view_any_ip');
+        return $user->can('view_any_firewall::ip');
     }
 
-    public function view(User $user, Permission $ip)
+    public function view(User $user, Ip $ip)
     {
-        return $user->can('view_ip');
+        return $user->can('view_firewall::ip');
     }
 
     public function create(User $user)
     {
-        return $user->can('create_ip');
+        return $user->can('create_firewall::ip');
     }
 
-    public function update(User $user, Permission $ip)
+    public function update(User $user, Ip $ip)
     {
-        return $user->can('update_ip');
+        return $user->can('update_firewall::ip');
     }
 
-    public function delete(User $user, Permission $ip)
+    public function delete(User $user, Ip $ip)
     {
-        return $user->can('delete_ip');
+        return $user->can('delete_firewall::ip');
     }
 
     public function deleteAny(User $user)
     {
-        return $user->can('delete_any_ip');
+        return $user->can('delete_any_firewall::ip');
     }
 
-    public function forceDelete(User $user, Permission $ip)
+    public function forceDelete(User $user, Ip $ip)
     {
         return $user->can('{{ ForceDelete }}');
     }
@@ -50,7 +50,7 @@ class FirewallPolicy
         return $user->can('{{ ForceDeleteAny }}');
     }
 
-    public function restore(User $user, Permission $ip)
+    public function restore(User $user, Ip $ip)
     {
         return $user->can('{{ Restore }}');
     }
@@ -58,7 +58,7 @@ class FirewallPolicy
     {
         return $user->can('{{ RestoreAny }}');
     }
-    public function replicate(User $user, Permission $ip)
+    public function replicate(User $user, Ip $ip)
     {
         return $user->can('{{ Replicate }}');
     }
