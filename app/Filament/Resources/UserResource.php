@@ -26,7 +26,8 @@ class UserResource extends phpsaUserResource
             ->columns([
                 TextColumn::make('id')
                     ->sortable()
-                    ->label(strval(__('filament-authentication::filament-authentication.field.id'))),
+                    ->label(strval(__('filament-authentication::filament-authentication.field.id')))
+                    ->searchable(),
                 TextColumn::make('pegawai.nama_lengkap')
                     ->searchable()
                     ->sortable()
