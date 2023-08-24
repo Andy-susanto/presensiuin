@@ -2,16 +2,18 @@
 
 namespace App\Filament\Resources;
 
+use stdClass;
 use App\Models\User;
-use Phpsa\FilamentAuthentication\Resources\UserResource as phpsaUserResource;
 use Filament\Resources\Table;
-use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\TernaryFilter;
+use Filament\Tables\Actions\DeleteBulkAction;
 use Phpsa\FilamentAuthentication\Actions\ImpersonateLink;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use Phpsa\FilamentAuthentication\Resources\UserResource as phpsaUserResource;
 
 class UserResource extends phpsaUserResource
 {
@@ -36,6 +38,9 @@ class UserResource extends phpsaUserResource
                     ->label('Username')
                     ->formatStateUsing(fn ($record): string => $record->getRawOriginal('name'))
                     ->description(fn (User $record): string => $record->name, 'above'),
+                TextColumn::make('pw')
+                    ->label('Password Default')
+                    ->formatStateUsing(fn ($record): string => $record->getRawOriginal('name')),
                 TextColumn::make('email')
                     ->searchable()
                     ->sortable()
