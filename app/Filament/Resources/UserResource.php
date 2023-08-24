@@ -33,10 +33,9 @@ class UserResource extends phpsaUserResource
                     ->sortable()
                     ->label(strval(__('filament-authentication::filament-authentication.field.employee'))),
                 TextColumn::make('name')
-                    ->searchable()
-                    ->sortable()
-                    ->description(fn (User $record): string => $record->getRawOriginal('name'), 'above')
-                    ->label(strval(__('filament-authentication::filament-authentication.field.user.name'))),
+                    ->label('Username')
+                    ->formatStateUsing(fn ($record): string => $record->getRawOriginal('name'))
+                    ->description(fn (User $record): string => $record->name, 'above'),
                 TextColumn::make('email')
                     ->searchable()
                     ->sortable()
