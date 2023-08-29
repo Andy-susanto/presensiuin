@@ -37,6 +37,12 @@ class Pegawai extends Model
         );
     }
 
+    public function biodata()
+    {
+        return $this->hasOne(Biodata::class, 'pegawais_id');
+    }
+
+
     public static function idWithNama()
     {
         return self::select('nama_lengkap', 'nama_pegawai', 'gelar_depan', 'gelar_belakang', 'id')->orderBy('nama_pegawai', 'asc')->get();

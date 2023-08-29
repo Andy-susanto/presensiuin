@@ -4,6 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
+use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,7 +14,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasAvatar, HasName
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
@@ -27,6 +30,16 @@ class User extends Authenticatable
         'pegawai_id',
         'google_id'
     ];
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return $this->pegawai?->biodata->file_foto;
+    }
+
+    public function getFilamentName(): string
+    {
+        return "{$this->pegawai?->nama_lengkap} ?? {$this->name}";
+    }
 
     /**
      * The attributes that should be hidden for serialization.

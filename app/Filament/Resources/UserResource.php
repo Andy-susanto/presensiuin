@@ -11,6 +11,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Filters\Layout;
+use Filament\Tables\Filters\SelectFilter;
 use Phpsa\FilamentAuthentication\Actions\ImpersonateLink;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use Phpsa\FilamentAuthentication\Resources\UserResource as phpsaUserResource;
@@ -62,10 +64,9 @@ class UserResource extends phpsaUserResource
                     ->label(strval(__('filament-authentication::filament-authentication.field.user.created_at'))),
             ])
             ->filters([
-                TernaryFilter::make('email_verified_at')
-                    ->label(strval(__('filament-authentication::filament-authentication.filter.verified')))
-                    ->nullable(),
-            ])
+                SelectFilter::make('pegawai_id')->label('Nama Pegawai')->relationship('pegawai', 'nama_pegawai')->columnSpan(5)->searchable(),
+                SelectFilter::make('role_id')->label('Hak Akses')->relationship('roles', 'name')->columnSpan(5)->searchable(),
+            ], layout: Layout::AboveContent)
 
             ->bulkActions([
                 ExportBulkAction::make(),

@@ -63,6 +63,8 @@ class Biodata extends Page implements HasForms
             'website'           => $this->biodata->website,
             'file_ktp'          => $this->biodata->file_ktp,
             'file_foto'         => $this->biodata->file_foto,
+            'no_ktp'            => $this->biodata->no_ktp,
+            'agama'             => $this->biodata->agama,
             'npwp'              => $this->biodata->npwp,
             'file_npwp'         => $this->biodata->file_npwp,
             'file_karpeg'       => $this->biodata->file_karpeg,
@@ -86,7 +88,7 @@ class Biodata extends Page implements HasForms
                         ->schema([
                             Grid::make(1)
                                 ->schema([
-                                    FileUpload::make('file_foto')->maxSize(1000)
+                                    FileUpload::make('file_foto')->label('File Foto')->maxSize(1000)
                                         ->image()
                                         ->imagePreviewHeight('250')
                                         ->loadingIndicatorPosition('left')
@@ -105,7 +107,7 @@ class Biodata extends Page implements HasForms
                                 ->schema([
                                     TextInput::make('tempat_lahir')->placeholder('Tempat Lahir'),
                                     DatePicker::make('tanggal_lahir')->closeOnDateSelection(),
-                                    TextInput::make('no_ktp'),
+                                    TextInput::make('no_ktp')->label('No KTP'),
                                     TextInput::make('npwp'),
                                 ]),
                             Grid::make(1)
@@ -116,6 +118,7 @@ class Biodata extends Page implements HasForms
                                         'hindu'     => 'Hindu',
                                         'budha'     => 'Budha',
                                         'protestan' => 'Protestan',
+                                        'konghucu' => 'Konghucu',
                                     ])
                                 ]),
                             Grid::make(1)
@@ -138,15 +141,15 @@ class Biodata extends Page implements HasForms
                                 ]),
                             Grid::make(1)
                                 ->schema([
-                                    Textarea::make('alamat_di_jambi'),
-                                    Textarea::make('alamat_asal'),
-                                    Textarea::make('nama_desa_asal'),
+                                    Textarea::make('alamat_di_jambi')->label('Alamat di Jambi'),
+                                    Textarea::make('alamat_asal')->label('Alamat Asal'),
+                                    Textarea::make('nama_desa_asal')->label('Nama Desa Asal'),
                                 ]),
                             Grid::make(3)
                                 ->schema([
-                                    TextInput::make('kode_pos_di_jambi')->numeric(),
+                                    TextInput::make('kode_pos_di_jambi')->label('Kode Pos di Jambi')->numeric(),
                                     TextInput::make('email')->email(),
-                                    TextInput::make('no_hp')->tel()
+                                    TextInput::make('no_hp')->label('No Hp')->tel()
                                 ]),
                         ]),
                     Tab::make('Data Pendukung')
@@ -154,8 +157,8 @@ class Biodata extends Page implements HasForms
                             Grid::make(3)
                                 ->schema([
                                     TextInput::make('website'),
-                                    TextInput::make('no_rekening'),
-                                    TextInput::make('nama_rekening'),
+                                    TextInput::make('no_rekening')->label('No Rekening BSI ( Bank Syariah Indonesia)'),
+                                    TextInput::make('nama_rekening')->placeholder('BSI (Bank Syariah Indonesia)')->default('BSI')->disabled(),
                                 ]),
                             Grid::make(2)
                                 ->schema([
