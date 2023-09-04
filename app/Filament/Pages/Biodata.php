@@ -99,6 +99,7 @@ class Biodata extends Page implements HasForms
                                         ->uploadProgressIndicatorPosition('left')
                                         ->enableDownload()
                                         ->enableOpen()
+                                        ->directory(auth()->user()->pegawai->nama_pegawai)
                                         ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                                             return (string) str((auth()->user()->pegawai->nama_lengkap ?? ('user' . rand())) . '.' . $file->getClientOriginalExtension())->prepend('pas-foto-');
                                         })
@@ -162,10 +163,64 @@ class Biodata extends Page implements HasForms
                                 ]),
                             Grid::make(2)
                                 ->schema([
-                                    FileUpload::make('file_ktp')->maxSize(1000),
-                                    FileUpload::make('file_npwp')->maxSize(1000),
-                                    FileUpload::make('file_karpeg')->maxSize(1000),
-                                    FileUpload::make('file_rekening')->maxSize(1000),
+                                    FileUpload::make('file_ktp')->maxSize(1000)
+                                        ->label('Foto KTP')
+                                        ->image()
+                                        ->imagePreviewHeight('250')
+                                        ->loadingIndicatorPosition('left')
+                                        ->panelAspectRatio('4:1')
+                                        ->panelLayout('integrated')
+                                        ->removeUploadedFileButtonPosition('right')
+                                        ->uploadButtonPosition('left')
+                                        ->uploadProgressIndicatorPosition('left')
+                                        ->enableDownload()
+                                        ->enableOpen()
+                                        ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
+                                            return (string) str((auth()->user()->pegawai->nama_lengkap ?? ('user' . rand())) . '.' . $file->getClientOriginalExtension())->prepend('file-ktp-');
+                                        }),
+                                    FileUpload::make('file_npwp')->maxSize(1000)->image()
+                                        ->label('Foto NPWP')
+                                        ->imagePreviewHeight('250')
+                                        ->loadingIndicatorPosition('left')
+                                        ->panelAspectRatio('4:1')
+                                        ->panelLayout('integrated')
+                                        ->removeUploadedFileButtonPosition('right')
+                                        ->uploadButtonPosition('left')
+                                        ->uploadProgressIndicatorPosition('left')
+                                        ->enableDownload()
+                                        ->enableOpen()
+                                        ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
+                                            return (string) str((auth()->user()->pegawai->nama_lengkap ?? ('user' . rand())) . '.' . $file->getClientOriginalExtension())->prepend('file-npwp-');
+                                        }),
+                                    FileUpload::make('file_karpeg')->maxSize(1000)->image()
+                                        ->label('Foto Kartu Pegawai')
+                                        ->imagePreviewHeight('250')
+                                        ->loadingIndicatorPosition('left')
+                                        ->panelAspectRatio('4:1')
+                                        ->panelLayout('integrated')
+                                        ->removeUploadedFileButtonPosition('right')
+                                        ->uploadButtonPosition('left')
+                                        ->uploadProgressIndicatorPosition('left')
+                                        ->enableDownload()
+                                        ->enableOpen()
+                                        ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
+                                            return (string) str((auth()->user()->pegawai->nama_lengkap ?? ('user' . rand())) . '.' . $file->getClientOriginalExtension())->prepend('file-karpeg-');
+                                        }),
+                                    FileUpload::make('file_rekening')->maxSize(1000)
+                                        ->label('Foto Buku Tabungan')
+                                        ->image()
+                                        ->imagePreviewHeight('250')
+                                        ->loadingIndicatorPosition('left')
+                                        ->panelAspectRatio('4:1')
+                                        ->panelLayout('integrated')
+                                        ->removeUploadedFileButtonPosition('right')
+                                        ->uploadButtonPosition('left')
+                                        ->uploadProgressIndicatorPosition('left')
+                                        ->enableDownload()
+                                        ->enableOpen()
+                                        ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
+                                            return (string) str((auth()->user()->pegawai->nama_lengkap ?? ('user' . rand())) . '.' . $file->getClientOriginalExtension())->prepend('file-rekening-');
+                                        }),
                                 ])
                         ]),
                     Tab::make('Data Penelitian')

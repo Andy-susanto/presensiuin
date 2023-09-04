@@ -8,8 +8,11 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Contracts\HasForms;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Forms\Concerns\InteractsWithForms;
 use BezhanSalleh\FilamentShield\Traits\HasFilamentShield;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
 
 class DataKepegawaian extends Page implements HasForms
 {
@@ -38,12 +41,13 @@ class DataKepegawaian extends Page implements HasForms
             'gelar_depan' => $this->pegawai->gelar_depan,
             'gelar_belakang' => $this->pegawai->gelar_belakang,
             'nip' => $this->pegawai->nip,
-            'jenis_no_induk' => $this->pegawai->jenis_no_induk,
-            'tanggal_masuk' => $this->pegawai->tanggal_masuk,
             'unit_kerjas_id' => $this->pegawai->unit_kerjas_id,
             'status_kerjas_id' => $this->pegawai->status_kerjas_id,
+            'pangkat_golongans_id' => $this->pegawai->pangkat_golongans_id,
             'tmt_sk' => $this->pegawai->tmt_sk,
-            'status_kepegawaians_id' => $this->pegawai->status_kepegawaians_id
+            'status_kepegawaians_id' => $this->pegawai->status_kepegawaians_id,
+            'jabatans_id' => $this->pegawai->jabatans_id,
+            'jenjang_pendidikans_id' => $this->pegawai->jenjang_pendidikans_id,
         ]);
     }
 
@@ -55,8 +59,62 @@ class DataKepegawaian extends Page implements HasForms
                     TextInput::make('gelar_depan')->placeholder('Gelar Depan'),
                     TextInput::make('nama_pegawai')->placeholder('Nama Pegawai'),
                     TextInput::make('gelar_belakang')->placeholder('Gelar Belakang'),
-                ])
+                ]),
+            Grid::make(1)
+                ->schema([
+                    TextInput::make('nip')->label('NIP')->placeholder('NIP'),
+                ]),
+            Grid::make(1)
+                ->schema([
+                    Select::make('unit_kerjas_id')->relationship('UnitKerja', 'nama_unit_kerja')->preload()->searchable()
+                ]),
+            Grid::make(1)
+                ->schema([
+                    Select::make('status_kerjas_id')->relationship('StatusKerja', 'nama')->preload()->searchable()
+                ]),
+            Grid::make(1)
+                ->schema([
+                    Select::make('pangkat_golongans_id')->relationship('PangkatGolongan', 'nama')->preload()->searchable()
+                ]),
+            Grid::make(1)
+                ->schema([
+                    DatePicker::make('tmt_sk')->label('TMT SK')->closeOnDateSelection()
+                ]),
+            Grid::make(1)
+                ->schema([
+                    Select::make('status_kepegawaians_id')->relationship('StatusKepegawaian', 'nama')->preload()->searchable()
+                ]),
+            Grid::make(1)
+                ->schema([
+                    Select::make('jabatans_id')->relationship('Jabatan', 'nama')->preload()->searchable()
+                ]),
+            Grid::make(1)
+                ->schema([
+                    Select::make('jenjang_pendidikans_id')->relationship('JenjangPendidikan', 'nama')->preload()->searchable()
+                ]),
         ];
+    }
+
+    public function submit()
+    {
+        if (auth()->user()->pegawai_id) {
+            $data = $this->form->getState();
+            Pegawai::updateOrCreate(
+                ['id' => auth()->user()->pegawai_id],
+                $data
+            );
+            Notification::make()
+                ->success()
+                ->title('Data Kepegawaian di perbaharui !')
+                ->body('Data anda telah di perbaharui')
+                ->send();
+        } else {
+            Notification::make()
+                ->danger()
+                ->title('Tidak dapat Mengubah Biodata !')
+                ->body('Anda tidak terdaftar sebagai pegawai. Silahkan hubungi admin')
+                ->send();
+        }
     }
 
     protected function getFormStatePath(): ?string

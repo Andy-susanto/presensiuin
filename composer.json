@@ -27,6 +27,7 @@
         "owenvoke/blade-fontawesome": "^2.3",
         "phpsa/filament-authentication": "^2.4",
         "pxlrbt/filament-excel": "1.x",
+        "ryangjchandler/filament-profile": "^0.3.0",
         "socialiteproviders/google": "^4.1",
         "solution-forest/filament-firewall": "^1.0",
         "webbingbrasil/filament-advancedfilter": "^1.2",

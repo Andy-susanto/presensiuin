@@ -18,7 +18,7 @@ class Login extends filamentLogin
             $this->rateLimit(5);
         } catch (TooManyRequestsException $exception) {
             throw ValidationException::withMessages([
-                'email' => __('filament::login.messages.throttled', [
+                'name' => __('filament::login.messages.throttled', [
                     'seconds' => $exception->secondsUntilAvailable,
                     'minutes' => ceil($exception->secondsUntilAvailable / 60),
                 ]),
@@ -32,12 +32,11 @@ class Login extends filamentLogin
             'password' => $data['password'],
         ], $data['remember'])) {
             throw ValidationException::withMessages([
-                'email' => __('filament::login.messages.failed'),
+                'name' => __('filament::login.messages.failed'),
             ]);
         }
 
         session()->regenerate();
-
         return app(LoginResponse::class);
     }
 

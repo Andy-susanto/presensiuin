@@ -15,5 +15,5 @@ class WaktuPresensi extends Model
      *
      * @var array
      */
-    protected $fillable = ['id', 'nama', 'hari', 'jam_mulai', 'jam_selesai', 'jenis', 'aktif1'];
+    protected $fillable = ['id', 'nama', 'hari', 'jam_mulai', 'jam_selesai', 'jenis', 'aktif'];
 }

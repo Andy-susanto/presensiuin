@@ -50,7 +50,7 @@ class Pegawai extends Model
 
     public function nama_lengkap()
     {
-        return (isset($this->gelar_depan) ? $this->gelar_depan . '. '  : '') . ' ' . $this->nama_pegawai . (isset($this->gelar_belakang) ? ', ' . $this->gelar_belakang : '');
+        return (isset($this->gelar_depan) ? $this->gelar_depan . '.'  : '') . '' . $this->nama_pegawai . (isset($this->gelar_belakang) ? ',' . $this->gelar_belakang : '');
     }
 
 

@@ -15,11 +15,13 @@ use App\Models\JenisUnitKerja;
 use App\Models\KategoriUnitKerja;
 use App\Models\LevelJabatanKemenag;
 use App\Models\PangkatGolongan;
+use App\Models\Presensi;
 use App\Models\SatkerKemenag;
 use App\Models\StatusKeaktifanPegawai;
 use App\Models\StatusKepegawaian;
 use App\Models\StatusKerja;
 use App\Models\User;
+use App\Models\WaktuPresensi;
 use App\Policies\BiodataPolicy;
 use App\Policies\FirewallPolicy;
 use App\Policies\JabatanFungsionalPolicy;
@@ -34,11 +36,13 @@ use App\Policies\LiburPolicy;
 use App\Policies\PangkatGolonganPolicy;
 use App\Policies\PangkatKemenagPolicy;
 use App\Policies\PegawaiPolicy;
+use App\Policies\PresensiPolicy;
 use App\Policies\SatkerKemenagPolicy;
 use App\Policies\StatusKeaktifanPegawaiPolicy;
 use App\Policies\StatusKepegawaianPolicy;
 use App\Policies\StatusKerjaPolicy;
 use App\Policies\UserPolicy;
+use App\Policies\WaktuPresensiPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use SolutionForest\FilamentFirewall\Models\Ip;
 
@@ -74,6 +78,8 @@ class AuthServiceProvider extends ServiceProvider
         PangkatKemenag::class => PangkatKemenagPolicy::class,
         LevelJabatanKemenag::class => LevelJabatanKemenagPolicy::class,
         KategoriUnitKerja::class => KategoriUnitKerjaPolicy::class,
+        WaktuPresensi::class => WaktuPresensiPolicy::class,
+        Presensi::class => PresensiPolicy::class
     ];
 
     /**

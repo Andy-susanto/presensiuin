@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -33,12 +34,12 @@ class User extends Authenticatable implements HasAvatar, HasName
 
     public function getFilamentAvatarUrl(): ?string
     {
-        return $this->pegawai?->biodata->file_foto;
+        return $this->pegawai?->biodata?->file_foto ? Storage::url($this->pegawai->biodata->file_foto) : '';
     }
 
     public function getFilamentName(): string
     {
-        return "{$this->pegawai?->nama_lengkap} ?? {$this->name}";
+        return $this->pegawai?->nama_lengkap ?? $this->name;
     }
 
     /**
@@ -63,13 +64,14 @@ class User extends Authenticatable implements HasAvatar, HasName
 
     public function pegawai()
     {
-        return $this->belongsTo(Pegawai::class);
+        return $this->belongsTo(Pegawai::class, 'pegawai_id');
     }
 
     public function name(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => $this->pegawai->nama_lengkap ?? $value
+            get: fn ($value) => $this->pegawai->nama_lengkap ?? $value,
+            set: fn ($value) =>  $this->getRawOriginal('name')
         );
     }
 }

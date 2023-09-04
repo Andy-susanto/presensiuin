@@ -20,13 +20,28 @@ class ManagePegawais extends ManageRecords
             Actions\CreateAction::make()
                 ->using(function (array $data) {
                     $pegawai = static::getModel()::create($data);
-                    $user = User::create([
-                        'pegawai_id' => $pegawai->id,
-                        'name' => $pegawai->nip,
-                        'password' => bcrypt($pegawai->nip)
-                    ]);
-                    $user->syncRoles(['pegawai']);
-                    return $pegawai;
+                    $user = User::get()->count();
+                    $year = now()->format('y');
+                    $formatUrut = $year . str_pad($user + 1, 4, "0", STR_PAD_LEFT);
+                    $check = User::where('name', $formatUrut)->first();
+                    if ($check) {
+                        $formatUrut = $year . str_pad($user + 2, 4, "0", STR_PAD_LEFT);
+                    }
+                    try {
+                        User::updateOrCreate(
+                            [
+                                'pegawai_id' => $pegawai->id
+                            ],
+                            [
+                                'name' => $formatUrut,
+                                'password' => bcrypt($formatUrut)
+                            ]
+                        );
+                        $data = User::where('pegawai_id', $pegawai->id)->first();
+                        $data->syncRoles('User');
+                    } catch (\Throwable $th) {
+                        //
+                    }
                 }),
             ImportAction::make()
                 ->fields([
