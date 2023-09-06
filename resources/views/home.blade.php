@@ -31,8 +31,36 @@
 @section('content')
     <div class="flex flex-wrap items-center space-x-4 justify-center mx-auto md:p-4">
         <div
-            class="min-w-lg max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
-
+            class="min-w-lg max-w-lg -mt-5 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
+            <div class="flex mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+                role="alert">
+                <button data-popover-target="popover-default">
+                    <svg class="flex-shrink-0 inline w-4 h-4 mr-3 mt-[2px]" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    Catatan Presensi
+                </button>
+                <div data-popover id="popover-default" role="tooltip"
+                    class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                    <div
+                        class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                        <h3 class="font-semibold text-gray-900 dark:text-white">Catatan Presensi</h3>
+                    </div>
+                    <div class="px-3 py-2">
+                        <div>
+                            <ul class="mt-1.5 ml-4 list-disc list-inside text-xs">
+                                <li>Jam Kerja : </li>
+                                <li>Senin - Kamis : Pagi (06:00 - 09:00), Sore (16:00 - 21:00)</li>
+                                <li>Ju'mat : Pagi (06:00 - 09:00), Sore (16:30 - 21:00)</li>
+                                <li>Harap tunjukan wajah secara menyeluruh ketika presensi</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div data-popper-arrow></div>
+                </div>
+            </div>
             <div id="loading-video"
                 class="hidden px-3 py-1 text-xs font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">
                 Sedang Memuat Modul Video...</div>
@@ -54,6 +82,7 @@
         </button>
         <select id="pegawai_id"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value=""></option>
             @foreach ($pegawais as $pegawai)
                 <option value="{{ $pegawai->id }}">{{ $pegawai->nama_lengkap }}</option>
             @endforeach

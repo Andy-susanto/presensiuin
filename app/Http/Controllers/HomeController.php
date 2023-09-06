@@ -75,7 +75,7 @@ class HomeController extends Controller
 
     public function checkPermissionGps($data)
     {
-        $enableGps = Setting::where('key', 'presensi.enable.ip')->first()->value;
+        $enableGps = Setting::where('key', 'presensi.enable.gps')->first()->value;
         if ($enableGps == 'ya') {
             if (!$data) {
                 $this->message = [

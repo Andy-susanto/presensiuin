@@ -23,7 +23,7 @@
 
 <body>
 
-    <nav class="bg-white border-gray-200 dark:bg-gray-900 -mb-8">
+    <nav class="bg-white border-gray-200 dark:bg-gray-900 -mb-8 ">
         <div class="max-w-screen-sm flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="{{ url('/') }}" class="flex items-center space-y-1">
                 <img src="{{ asset('image/logouinjambi.svg') }}" class="h-8 mr-3" alt="logo" />
