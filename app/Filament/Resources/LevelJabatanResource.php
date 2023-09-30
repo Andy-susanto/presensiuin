@@ -7,30 +7,23 @@ use App\Filament\Resources\LevelJabatanResource\RelationManagers;
 use App\Models\LevelJabatan;
 use App\Models\LevelJabatanKemenag;
 use Filament\Forms;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class LevelJabatanResource extends Resource
 {
     protected static ?string $model = LevelJabatanKemenag::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): ?string
     {
         return 'Data Kemenag';
-    }
-
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                //
-            ]);
     }
 
     public static function table(Table $table): Table
@@ -52,6 +45,10 @@ class LevelJabatanResource extends Resource
             ]);
     }
 
+    public static function canCreate(): bool
+    {
+        return false;
+    }
     public static function getPages(): array
     {
         return [

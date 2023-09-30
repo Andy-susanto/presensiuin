@@ -5,7 +5,8 @@ export default {
         './resources/**/*.blade.php',
         './vendor/filament/**/*.blade.php',
          "./resources/**/*.js",
-        "./node_modules/flowbite/**/*.js"
+        "./node_modules/flowbite/**/*.js",
+        '<path-to-vendor>/awcodes/filament-badgeable-column/resources/**/*.blade.php',
   ],
   darkMode: 'class',
   theme: {

@@ -18,6 +18,8 @@ class ManageJabatanKemenags extends ManageRecords
             Actions\CreateAction::make(),
             Actions\Action::make('update_data')
                 ->label('Update Data dari Kemenag')
+                ->icon('heroicon-o-arrow-down-on-square')
+                ->color('gray')
                 ->action(function () {
                     Notification::make()
                         ->title('Selesai')

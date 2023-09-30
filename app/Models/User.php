@@ -14,9 +14,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 
 class User extends Authenticatable implements HasAvatar, HasName
 {
+    use HasPanelShield;
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**

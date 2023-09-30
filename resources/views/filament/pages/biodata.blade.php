@@ -2,7 +2,7 @@
     Catatan : <span class="italic text-red-400">Data yang penting harus di isi adalah identitas diri dan alamat terutama
         foto, Data Pendukung bersifat opsional bisa di inputkan di nanti . Data penelitian di tujukan untuk dosen /
         tenaga pengajar</span>
-    <form wire:submit.prevent="submit">
+    <form wire:submit="submit">
         {{ $this->form }}
 
         <x-filament::button class="mt-10" wire:loading.attr="disabled" :color="'success'" :icon="'heroicon-o-save'" type="submit">

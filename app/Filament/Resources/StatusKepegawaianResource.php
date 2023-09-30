@@ -6,9 +6,9 @@ use App\Filament\Resources\StatusKepegawaianResource\Pages;
 use App\Filament\Resources\StatusKepegawaianResource\RelationManagers;
 use App\Models\StatusKepegawaian;
 use Filament\Forms;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -17,9 +17,9 @@ class StatusKepegawaianResource extends Resource
 {
     protected static ?string $model = StatusKepegawaian::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): ?string
     {
         return 'Data Master';
     }

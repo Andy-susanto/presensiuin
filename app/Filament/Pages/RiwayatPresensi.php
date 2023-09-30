@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Models\Presensi;
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Pages\Page;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 class RiwayatPresensi extends Page implements HasTable
 {
     use InteractsWithTable;
+    use HasPageShield;
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static string $view = 'filament.pages.riwayat-presensi';
@@ -26,6 +28,16 @@ class RiwayatPresensi extends Page implements HasTable
     protected function getTableQuery(): Builder|Relation
     {
         return Presensi::query()->where('pegawai_id', Auth::user()->pegawai_id);
+    }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()->can('page_RiwayatPresensi');
+    }
+
+    public function mount()
+    {
+        abort_unless(auth()->user()->can('page_RiwayatPresensi'), 403);
     }
 
     protected function getTableColumns(): array

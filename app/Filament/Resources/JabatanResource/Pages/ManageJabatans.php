@@ -15,8 +15,10 @@ class ManageJabatans extends ManageRecords
     protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()->label('Buat Baru')->icon('heroicon-o-plus-circle')->color('success'),
             ImportAction::make()
+                ->icon('heroicon-o-cloud-arrow-up')
+                ->color('gray')
                 ->fields([
                     ImportField::make('nama')
                         ->label('Nama'),

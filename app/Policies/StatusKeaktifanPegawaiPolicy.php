@@ -4,66 +4,148 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\StatusKeaktifanPegawai;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class StatusKeaktifanPegawaiPolicy
 {
+    use HandlesAuthorization;
+
     /**
-     * Create a new policy instance.
+     * Determine whether the user can view any models.
+     *
+     * @param  \App\Models\User  $user
+     * @return bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
-        return $user->can('view_any_status::keatifan::pegawai');
+        return $user->can('view_any_status::keaktifan::pegawai');
     }
 
-    public function view(User $user, StatusKeaktifanPegawai $StatusKeaktifanPegawai)
+    /**
+     * Determine whether the user can view the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\StatusKeaktifanPegawai  $statusKeaktifanPegawai
+     * @return bool
+     */
+    public function view(User $user, StatusKeaktifanPegawai $statusKeaktifanPegawai): bool
     {
-        return $user->can('view_status::keatifan::pegawai');
+        return $user->can('view_status::keaktifan::pegawai');
     }
 
-    public function create(User $user)
+    /**
+     * Determine whether the user can create models.
+     *
+     * @param  \App\Models\User  $user
+     * @return bool
+     */
+    public function create(User $user): bool
     {
-        return $user->can('create_status::keatifan::pegawai');
+        return $user->can('create_status::keaktifan::pegawai');
     }
 
-    public function update(User $user, StatusKeaktifanPegawai $StatusKeaktifanPegawai)
+    /**
+     * Determine whether the user can update the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\StatusKeaktifanPegawai  $statusKeaktifanPegawai
+     * @return bool
+     */
+    public function update(User $user, StatusKeaktifanPegawai $statusKeaktifanPegawai): bool
     {
-        return $user->can('update_status::keatifan::pegawai');
+        return $user->can('update_status::keaktifan::pegawai');
     }
 
-    public function delete(User $user, StatusKeaktifanPegawai $StatusKeaktifanPegawai)
+    /**
+     * Determine whether the user can delete the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\StatusKeaktifanPegawai  $statusKeaktifanPegawai
+     * @return bool
+     */
+    public function delete(User $user, StatusKeaktifanPegawai $statusKeaktifanPegawai): bool
     {
-        return $user->can('delete_status::keatifan::pegawai');
+        return $user->can('delete_status::keaktifan::pegawai');
     }
 
-    public function deleteAny(User $user)
+    /**
+     * Determine whether the user can bulk delete.
+     *
+     * @param  \App\Models\User  $user
+     * @return bool
+     */
+    public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_status::keatifan::pegawai');
+        return $user->can('delete_any_status::keaktifan::pegawai');
     }
 
-    public function forceDelete(User $user, StatusKeaktifanPegawai $StatusKeaktifanPegawai)
+    /**
+     * Determine whether the user can permanently delete.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\StatusKeaktifanPegawai  $statusKeaktifanPegawai
+     * @return bool
+     */
+    public function forceDelete(User $user, StatusKeaktifanPegawai $statusKeaktifanPegawai): bool
     {
-        return $user->can('{{ ForceDelete }}');
+        return $user->can('force_delete_status::keaktifan::pegawai');
     }
 
-    public function forceDeleteAny(User $user)
+    /**
+     * Determine whether the user can permanently bulk delete.
+     *
+     * @param  \App\Models\User  $user
+     * @return bool
+     */
+    public function forceDeleteAny(User $user): bool
     {
-        return $user->can('{{ ForceDeleteAny }}');
+        return $user->can('force_delete_any_status::keaktifan::pegawai');
     }
 
-    public function restore(User $user, StatusKeaktifanPegawai $StatusKeaktifanPegawai)
+    /**
+     * Determine whether the user can restore.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\StatusKeaktifanPegawai  $statusKeaktifanPegawai
+     * @return bool
+     */
+    public function restore(User $user, StatusKeaktifanPegawai $statusKeaktifanPegawai): bool
     {
-        return $user->can('{{ Restore }}');
+        return $user->can('restore_status::keaktifan::pegawai');
     }
-    public function restoreAny(User $user)
+
+    /**
+     * Determine whether the user can bulk restore.
+     *
+     * @param  \App\Models\User  $user
+     * @return bool
+     */
+    public function restoreAny(User $user): bool
     {
-        return $user->can('{{ RestoreAny }}');
+        return $user->can('restore_any_status::keaktifan::pegawai');
     }
-    public function replicate(User $user, StatusKeaktifanPegawai $StatusKeaktifanPegawai)
+
+    /**
+     * Determine whether the user can replicate.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\StatusKeaktifanPegawai  $statusKeaktifanPegawai
+     * @return bool
+     */
+    public function replicate(User $user, StatusKeaktifanPegawai $statusKeaktifanPegawai): bool
     {
-        return $user->can('{{ Replicate }}');
+        return $user->can('replicate_status::keaktifan::pegawai');
     }
-    public function reorder(User $user)
+
+    /**
+     * Determine whether the user can reorder.
+     *
+     * @param  \App\Models\User  $user
+     * @return bool
+     */
+    public function reorder(User $user): bool
     {
-        return $user->can('{{ Reorder }}');
+        return $user->can('reorder_status::keaktifan::pegawai');
     }
+
 }

@@ -2,12 +2,13 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Filament\Facades\Filament;
-use Laravel\Socialite\Contracts\User as SocialiteUserContract;
-use DutchCodingCompany\FilamentSocialite\Facades\FilamentSocialite as FilamentSocialiteFacade;
-use DutchCodingCompany\FilamentSocialite\FilamentSocialite;
-
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
+use Filament\Support\Facades\FilamentView;
+use Illuminate\Contracts\View\View;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Table;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+
     }
 
     /**
@@ -24,9 +25,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Filament::serving(function () {
-            // Using Vite
-            Filament::registerViteTheme('resources/css/filament.css');
+        FilamentView::registerRenderHook(
+            'panels::topbar.start',
+            fn (): View => View('component.brand-name')
+        );
+
+        Table::configureUsing(function (Table $table): void {
+            $table
+                ->deferLoading()
+                ->filtersLayout(FiltersLayout::AboveContentCollapsible)
+                ->paginationPageOptions([10, 25, 50]);
         });
     }
 }

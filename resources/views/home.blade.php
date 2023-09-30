@@ -55,6 +55,7 @@
                                 <li>Senin - Kamis : Pagi (06:00 - 09:00), Sore (16:00 - 21:00)</li>
                                 <li>Ju'mat : Pagi (06:00 - 09:00), Sore (16:30 - 21:00)</li>
                                 <li>Harap tunjukan wajah secara menyeluruh ketika presensi</li>
+                                <li>Password yang di maksud adalah password anda ketika login</li>
                             </ul>
                         </div>
                     </div>
@@ -87,6 +88,7 @@
                 <option value="{{ $pegawai->id }}">{{ $pegawai->nama_lengkap }}</option>
             @endforeach
         </select>
+        <input id="password" type="password" class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukan Password">
         <input type="hidden" name="lat" id="lat">
         <input type="hidden" name="long" id="long">
         <button data-modal-target="extralarge-modal" data-modal-toggle="extralarge-modal" type="button"
@@ -207,7 +209,7 @@
                     Settings
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div>
-                <a href="{{ route('filament.auth.login') }}" data-tooltip-target="tooltip-profile" type="button"
+                <a href="{{ route('filament.admin.auth.login') }}" data-tooltip-target="tooltip-profile" type="button"
                     class="inline-flex flex-col items-center justify-center px-5 rounded-r-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor"
@@ -438,8 +440,9 @@
             //     saveAs(blob, 'my-image.png')
             // }, "image/png", 0.95);
             var pegawai = $("#pegawai_id").val();
+            var password = $("#password").val();
             getLocation();
-            if (pegawai != null || pegawai != '') {
+            if (pegawai != null || pegawai != '' || password != '' || password != null) {
                 var lat = $('#lat').val();
                 var long = $('#long').val();
                 $.ajax({
@@ -450,7 +453,8 @@
                         pegawai_id: pegawai,
                         foto_presensi: imageData,
                         lat: lat,
-                        long: long
+                        long: long,
+                        password:password
                     },
                     success: function(data) {
                         if (data.status == 'success') {
@@ -473,7 +477,7 @@
             } else {
                 Swal.fire({
                     title: 'Error!',
-                    text: 'Anda Belum memilih pegawai',
+                    text: 'Anda Belum memilih pegawai atau mengisikan password',
                     icon: 'error',
                     confirmButtonText: 'OK'
                 })

@@ -9,41 +9,42 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "awcodes/overlook": "^1.2",
-        "bezhansalleh/filament-language-switch": "^1.0",
-        "bezhansalleh/filament-shield": "^2.4",
-        "brickx/laravel-filament-maintenance": "^1.1",
+        "andrewdwallo/filament-selectify": "^2.0",
+        "aymanalhattami/filament-page-with-sidebar": "^2.1",
+        "bezhansalleh/filament-shield": "^3.0@beta",
         "calendarific/php-calendarific": "^2.0",
-        "cms-multi/filament-clear-cache": "^1.0",
-        "filament/filament": "^2.0",
+        "filament/filament": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
-        "ibrahim-bedir/filament-dynamic-settings-page": "dev-main",
+        "hasnayeen/themes": "^3.0",
+        "husam-tariq/filament-timepicker": "^3.0",
+        "kenepa/multi-widget": "^2.0",
         "konnco/filament-import": "^1.5",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
         "laravel/socialite": "^5.6",
         "laravel/tinker": "^2.8",
         "laravolt/avatar": "^5.0",
+        "njxqlus/filament-progressbar": "^1.0",
         "owenvoke/blade-fontawesome": "^2.3",
-        "phpsa/filament-authentication": "^2.4",
-        "pxlrbt/filament-excel": "1.x",
-        "ryangjchandler/filament-profile": "^0.3.0",
+        "psr/simple-cache": "2.0",
+        "pxlrbt/filament-excel": "^2.1",
         "socialiteproviders/google": "^4.1",
-        "solution-forest/filament-firewall": "^1.0",
-        "webbingbrasil/filament-advancedfilter": "^1.2",
-        "z3d0x/filament-logger": "^0.5"
+        "stechstudio/filament-impersonate": "^3.5",
+        "webbingbrasil/filament-advancedfilter": "^3.0@beta",
+        "ysfkaya/filament-phone-input": "^2.0",
+        "z3d0x/filament-logger": "^0.6.1"
     },
     "require-dev": {
         "doctrine/dbal": "^3.6",
         "fakerphp/faker": "^1.9.1",
+        "filament/upgrade": "^3.0-stable",
         "laravel-lang/common": "^3.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
         "phpunit/phpunit": "^10.1",
-        "spatie/laravel-ignition": "^2.0",
-        "sven/artisan-view": "^3.6"
+        "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -64,7 +65,8 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
-            "@php artisan filament:upgrade"
+            "@php artisan filament:upgrade",
+            "@php artisan themes:upgrade"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
@@ -90,6 +92,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }

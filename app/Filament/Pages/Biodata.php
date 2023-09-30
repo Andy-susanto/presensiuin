@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Models\Biodata as ModelsBiodata;
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
@@ -24,6 +25,7 @@ use Livewire\TemporaryUploadedFile;
 class Biodata extends Page implements HasForms
 {
     use InteractsWithForms;
+    use HasPageShield;
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static string $view = 'filament.pages.biodata';
@@ -31,12 +33,12 @@ class Biodata extends Page implements HasForms
     protected ModelsBiodata $biodata;
     public $data;
 
-    protected static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): ?string
     {
         return 'Kepegawaian';
     }
 
-    protected static function shouldRegisterNavigation(): bool
+    public static function shouldRegisterNavigation(): bool
     {
         return auth()->user()->can('page_Biodata');
     }
@@ -99,7 +101,7 @@ class Biodata extends Page implements HasForms
                                         ->uploadProgressIndicatorPosition('left')
                                         ->enableDownload()
                                         ->enableOpen()
-                                        ->directory(auth()->user()->pegawai->nama_pegawai)
+                                        ->directory(auth()->user()->pegawai->nama_pegawai ?? 'admin')
                                         ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                                             return (string) str((auth()->user()->pegawai->nama_lengkap ?? ('user' . rand())) . '.' . $file->getClientOriginalExtension())->prepend('pas-foto-');
                                         })

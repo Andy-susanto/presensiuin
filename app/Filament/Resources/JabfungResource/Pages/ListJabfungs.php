@@ -13,7 +13,7 @@ class ListJabfungs extends ListRecords
     protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()->label('Buat Baru')->color('success')->icon('heroicon-o-plus-circle'),
         ];
     }
 }

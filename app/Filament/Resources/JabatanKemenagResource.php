@@ -2,24 +2,27 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use App\Models\JabatanKemenag;
+use Filament\Resources\Resource;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Actions\DeleteAction;
+use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\JabatanKemenagResource\Pages;
 use App\Filament\Resources\JabatanKemenagResource\RelationManagers;
-use App\Models\JabatanKemenag;
-use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
-use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Enums\FiltersLayout;
 
 class JabatanKemenagResource extends Resource
 {
     protected static ?string $model = JabatanKemenag::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): ?string
     {
         return 'Data Kemenag';
     }
@@ -35,24 +38,32 @@ class JabatanKemenagResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->groups(['grade'])
+            ->deferLoading()
+            ->striped()
             ->columns([
-                Tables\Columns\TextColumn::make('kode_jabatan')->searchable(),
-                Tables\Columns\TextColumn::make('jabatan')->searchable(),
-                Tables\Columns\TextColumn::make('tampil_jabatan')->searchable(),
-                Tables\Columns\TextColumn::make('usia_jabatan')->searchable(),
-                Tables\Columns\TextColumn::make('tunjangan')->formatStateUsing(fn (string $state): string => 'Rp. ' . number_format($state, 2))->searchable(),
-                Tables\Columns\TextColumn::make('grade')->searchable(),
+                TextColumn::make('kode_jabatan')->sortable()->searchable(),
+                TextColumn::make('jabatan')->searchable(),
+                TextColumn::make('tampil_jabatan')->searchable(),
+                TextColumn::make('usia_jabatan')->searchable(),
+                TextColumn::make('tunjangan')->formatStateUsing(fn (string $state): string => 'Rp. ' . number_format($state, 2))->searchable(),
+                TextColumn::make('grade')->searchable(),
             ])
             ->filters([
-                //
-            ])
+
+            ],layout: FiltersLayout::AboveContentCollapsible)
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+               EditAction::make(),
+               DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+               DeleteBulkAction::make(),
             ]);
+    }
+
+    public static function canCreate(): bool
+    {
+        return false;
     }
 
     public static function getPages(): array

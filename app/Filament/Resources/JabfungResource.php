@@ -6,9 +6,9 @@ use App\Filament\Resources\JabfungResource\Pages;
 use App\Filament\Resources\JabfungResource\RelationManagers;
 use App\Models\Jabfung;
 use Filament\Forms;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -17,12 +17,12 @@ class JabfungResource extends Resource
 {
     protected static ?string $model = Jabfung::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $navigationLabel = 'Jabatan Fungsional';
     protected static ?string $label = 'Jabatan Fungsional';
 
-    protected static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): ?string
     {
         return 'Data Master';
     }

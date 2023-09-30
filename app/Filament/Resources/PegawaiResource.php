@@ -6,11 +6,10 @@ use App\Events\BuatAkun;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Pegawai;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
-use Filament\Resources\Resource;
-use Filament\Tables\Filters\Layout;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Resources\Resource;
 use App\Filament\Resources\PegawaiResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PegawaiResource\RelationManagers;
@@ -20,10 +19,10 @@ class PegawaiResource extends Resource
 {
     protected static ?string $model = Pegawai::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationLabel = 'Pegawai';
 
-    protected static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): ?string
     {
         return 'Data Master';
     }

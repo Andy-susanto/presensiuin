@@ -1,5 +1,5 @@
 <x-filament::page>
-    <form wire:submit.prevent="submit">
+    <form wire:submit="submit">
         {{ $this->form }}
 
         <x-filament::button class="mt-10" wire:loading.attr="disabled" :color="'success'" :icon="'heroicon-o-save'" type="submit">

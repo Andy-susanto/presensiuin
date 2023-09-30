@@ -11,23 +11,25 @@ use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Forms\Concerns\InteractsWithForms;
 use BezhanSalleh\FilamentShield\Traits\HasFilamentShield;
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 
 class DataKepegawaian extends Page implements HasForms
 {
     use InteractsWithForms;
+    use HasPageShield;
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
     public $data;
     protected Pegawai $pegawai;
     protected static string $view = 'filament.pages.data-kepegawaian';
 
-    protected static function shouldRegisterNavigation(): bool
+    public static function shouldRegisterNavigation(): bool
     {
         return auth()->user()->can('page_DataKepegawaian');
     }
 
-    protected static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): ?string
     {
         return 'Kepegawaian';
     }

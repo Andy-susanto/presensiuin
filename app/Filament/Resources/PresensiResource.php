@@ -5,48 +5,32 @@ namespace App\Filament\Resources;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Presensi;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Filters\Layout;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\PresensiResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\PresensiResource\RelationManagers;
+use Filament\Tables\Enums\FiltersLayout;
 
 class PresensiResource extends Resource
 {
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Form $form): Form
+    public static function getNavigationGroup(): ?string
     {
-        return $form->schema([]);
-        // ->schema([
-        //     Forms\Components\TextInput::make('pegawai_id')
-        //         ->required()
-        //         ->maxLength(36),
-        //     Forms\Components\TextInput::make('waktu_presensi_id')
-        //         ->maxLength(36),
-        //     Forms\Components\DatePicker::make('tanggal'),
-        //     Forms\Components\TextInput::make('waktu'),
-        //     Forms\Components\TextInput::make('foto')
-        //         ->maxLength(255),
-        //     Forms\Components\TextInput::make('lat')
-        //         ->maxLength(255),
-        //     Forms\Components\TextInput::make('long')
-        //         ->maxLength(255),
-        //     Forms\Components\TextInput::make('ip')
-        //         ->maxLength(255),
-        //     Forms\Components\Textarea::make('keterangan')
-        //         ->maxLength(65535),
-        // ]);
+        return 'Presensi';
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->contentGrid([
+                'md' => 2,
+                'xl' => 2,
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('pegawai.nama_lengkap'),
                 // Tables\Columns\TextColumn::make('waktu_presensi_id'),
@@ -60,13 +44,11 @@ class PresensiResource extends Resource
                 Tables\Columns\TextColumn::make('keterangan'),
             ])
             ->filters([
-                SelectFilter::make('pegawai_id')->label('Nama Pegawai')->relationship('pegawai', 'nama_pegawai')->columnSpan(5)->searchable()
-            ], layout: Layout::AboveContent)
+                SelectFilter::make('pegawai_id')->label('Nama Pegawai')->relationship('pegawai', 'nama_pegawai')->columnSpan(5)->preload()->searchable()
+            ], layout: FiltersLayout::AboveContent)->persistFiltersInSession()
             ->actions([
-                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 
@@ -77,12 +59,25 @@ class PresensiResource extends Resource
         ];
     }
 
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return false;
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return false;
+    }
+
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListPresensis::route('/'),
-            // 'create' => Pages\CreatePresensi::route('/create'),
-            // 'edit' => Pages\EditPresensi::route('/{record}/edit'),
         ];
     }
 }
