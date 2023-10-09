@@ -2,13 +2,14 @@
 
 namespace App\Providers;
 
+use Filament\Tables\Table;
 use Filament\Facades\Filament;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Filament\Support\Facades\FilamentView;
-use Illuminate\Contracts\View\View;
 use Filament\Tables\Enums\FiltersLayout;
-use Filament\Tables\Table;
+use Filament\Support\Facades\FilamentView;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,7 +18,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-
+        if (env(key: 'APP_ENV') =='local') {
+            URL::forceScheme(scheme:'https');
+          }
     }
 
     /**

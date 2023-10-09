@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\Login;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -26,11 +27,14 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('app')
+            ->registration()
+            ->spa()
+            ->maxContentWidth('full')
             ->brandLogo(asset('image/logouinjambi.svg'))
             ->brandName('Presensi Pegawai')
             ->favicon(asset('image/favicon.svg'))
             ->font('Poppins')
-            ->login()
+            ->login(Login::class)
             ->colors([
                 'primary' => Color::Amber,
             ])
