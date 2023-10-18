@@ -13,7 +13,9 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use STS\FilamentImpersonate\Tables\Actions\Impersonate;
 
 class UserResource extends Resource
 {
@@ -30,15 +32,10 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('pegawai_id')
-                     ->relationship('pegawai','nama_pegawai')
-                     ->label('pegawai')
-                     ->preload()
-                     ->searchable()
-                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->disabledOn('edit'),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->maxLength(255),
@@ -62,29 +59,19 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('google_id')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('theme')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('theme_color')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('id')
+                    ->badge()
+                    ->state(function(Model $record){
+                        return $record->getRoleNames();
+                    })
             ])
             ->filters([
                 //
             ])
             ->actions([
+                Impersonate::make()->redirectTo(route('filament.admin.pages.dashboard')),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

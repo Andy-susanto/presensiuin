@@ -33,7 +33,7 @@ class AlasanResource extends Resource
             $akses = true;
         }
 
-        return false;
+        return $akses;
     }
 
     public static function form(Form $form): Form
@@ -65,16 +65,11 @@ class AlasanResource extends Resource
         return $table
             ->modifyQueryUsing(fn (Builder $query) => $query->where('pegawai_id',auth()->user()?->pegawai_id))
             ->columns([
-                Tables\Columns\TextColumn::make('pegawai_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('pegawai.nama_lengkap')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('jenis_alasan')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('file')
-                    ->state(function($state){
-                        return new HtmlString(Storage::disk('public')->url($state));
-                    })
-                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('tanggal_mulai')
                     ->date()
                     ->sortable(),
@@ -83,14 +78,6 @@ class AlasanResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

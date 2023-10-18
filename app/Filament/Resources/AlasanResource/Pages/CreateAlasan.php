@@ -21,7 +21,7 @@ class CreateAlasan extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['pegawai_id'] = auth()->user()?->pegawai_id;
+        $data['pegawai_id'] = auth()->user()->pegawai_id;
         return $data;
     }
 }

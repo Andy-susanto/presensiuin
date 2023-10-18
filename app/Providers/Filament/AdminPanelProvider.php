@@ -3,9 +3,11 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\Auth\Login;
+use App\Filament\Resources\UserResource;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -27,8 +29,10 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('app')
-            ->registration()
             ->spa()
+            ->userMenuItems([
+                'Profile' => MenuItem::make()->label('Profile')->url(fn() => UserResource::getUrl('edit',[auth()->user()->id]))
+            ])
             ->maxContentWidth('full')
             ->brandLogo(asset('image/logouinjambi.svg'))
             ->brandName('Presensi Pegawai')

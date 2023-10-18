@@ -48,7 +48,6 @@ class RoleResource extends Resource implements HasShieldPermissions
                                 Forms\Components\TextInput::make('name')
                                     ->label(__('filament-shield::filament-shield.field.name'))
                                     ->required()
-                                    ->unique()
                                     ->disabled(function($state){
                                         if($state == 'super_admin')
                                         {

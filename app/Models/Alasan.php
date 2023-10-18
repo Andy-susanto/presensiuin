@@ -19,7 +19,7 @@ class Alasan extends Model
      *
      * @var array
      */
-    protected $guarded = [];
+    protected $fillable = ['pegawai_id','jenis_alasan','file','tanggal_mulai','tanggal_selesai','status'];
 
     public function pegawai()
     {
