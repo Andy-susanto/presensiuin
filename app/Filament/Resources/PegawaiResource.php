@@ -14,12 +14,15 @@ use App\Filament\Resources\PegawaiResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PegawaiResource\RelationManagers;
 use Illuminate\Database\Eloquent\Collection;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
 
 class PegawaiResource extends Resource
 {
     protected static ?string $model = Pegawai::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-user-group';
     protected static ?string $navigationLabel = 'Pegawai';
 
     public static function getNavigationGroup(): ?string
@@ -68,26 +71,49 @@ class PegawaiResource extends Resource
             ]);
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Infolists\Components\TextEntry::make('nama_lengkap'),
+                Infolists\Components\TextEntry::make('nip'),
+                Infolists\Components\TextEntry::make('jenis_no_induk')->badge()->colors(fn (string $state): string => match ($state) {
+                    'warning' => 'nip',
+                    'success' => 'nidn',
+                    'primary' => 'nik',
+                }),
+                Infolists\Components\TextEntry::make('tanggal_masuk'),
+                Infolists\Components\TextEntry::make('tanggal_keluar'),
+                Infolists\Components\TextEntry::make('UnitKerja.nama_unit_kerja'),
+                Infolists\Components\TextEntry::make('StatusKepegawaian.nama'),
+                Infolists\Components\TextEntry::make('StatusKerja.nama'),
+                Infolists\Components\TextEntry::make('PangkatGolongan.nama'),
+                Infolists\Components\TextEntry::make('StatusKeaktifanPegawai.nama'),
+                Infolists\Components\TextEntry::make('Jabatan.nama'),
+                Infolists\Components\TextEntry::make('JenjangPendidikan.nama'),
+            ]);
+    }
+
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('nama_lengkap')->searchable(['nama_pegawai']),
                 Tables\Columns\TextColumn::make('nip'),
-                Tables\Columns\BadgeColumn::make('jenis_no_induk')->colors([
+                Tables\Columns\TextColumn::make('jenis_no_induk')->badge()->colors(fn (string $state): string => match ($state) {
                     'warning' => 'nip',
                     'success' => 'nidn',
                     'primary' => 'nik',
-                ]),
-                Tables\Columns\TextColumn::make('tanggal_masuk')->date(),
-                Tables\Columns\TextColumn::make('tanggal_keluar')->date(),
-                Tables\Columns\TextColumn::make('UnitKerja.nama_unit_kerja')->label('Unit Kerja')->searchable(),
+                }),
+                Tables\Columns\TextColumn::make('tanggal_masuk')->date()->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('tanggal_keluar')->date()->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('UnitKerja.nama_unit_kerja')->label('Unit Kerja')->searchable()->wrap(),
                 Tables\Columns\TextColumn::make('StatusKepegawaian.nama')->searchable(),
                 Tables\Columns\TextColumn::make('StatusKerja.nama')->searchable(),
-                Tables\Columns\TextColumn::make('PangkatGolongan.nama')->searchable(),
-                Tables\Columns\TextColumn::make('StatusKeaktifanPegawai.nama')->searchable(),
-                Tables\Columns\TextColumn::make('Jabatan.nama')->searchable(),
-                Tables\Columns\TextColumn::make('JenjangPendidikan.nama')->searchable(),
+                Tables\Columns\TextColumn::make('PangkatGolongan.nama')->searchable()->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('StatusKeaktifanPegawai.nama')->searchable()->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('Jabatan.nama')->searchable()->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('JenjangPendidikan.nama')->searchable()->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters(
                 [
@@ -99,9 +125,10 @@ class PegawaiResource extends Resource
                     Tables\Filters\SelectFilter::make('status_keaktifan_pegawais_id')->label('Status Keaktifan Pegawai')->relationship('StatusKeaktifanPegawai', 'nama')->searchable()->columnSpan(1),
                     Tables\Filters\SelectFilter::make('jenjang_pendidikans_id')->label('Jenjang Pendidikan')->relationship('JenjangPendidikan', 'nama')->searchable()->columnSpan(1),
                 ],
-                layout: Layout::AboveContent,
+                layout: FiltersLayout::AboveContent,
             )
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\Action::make('create_user')
                     ->label('Buat Akun')
                     ->url(fn (Pegawai $record): string => route('users.create.akun', $record)),

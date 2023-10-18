@@ -17,7 +17,7 @@ class WaktuPresensiResource extends Resource
 {
     protected static ?string $model = WaktuPresensi::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-clock';
 
     public static function getNavigationGroup(): ?string
     {
@@ -29,8 +29,7 @@ class WaktuPresensiResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Textarea::make('nama')
-                    ->required()
-                    ->maxLength(65535),
+                    ->required(),
                 Forms\Components\Select::make('hari')
                     ->options([
                         'senin' => 'Senin',
@@ -72,6 +71,7 @@ class WaktuPresensiResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

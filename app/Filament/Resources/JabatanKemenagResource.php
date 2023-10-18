@@ -14,9 +14,11 @@ use Filament\Tables\Actions\DeleteBulkAction;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\JabatanKemenagResource\Pages;
 use App\Filament\Resources\JabatanKemenagResource\RelationManagers;
+use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Tables\Enums\FiltersLayout;
+use Illuminate\Database\Eloquent\Model;
 
-class JabatanKemenagResource extends Resource
+class JabatanKemenagResource extends Resource implements HasShieldPermissions
 {
     protected static ?string $model = JabatanKemenag::class;
 
@@ -27,12 +29,12 @@ class JabatanKemenagResource extends Resource
         return 'Data Kemenag';
     }
 
-    public static function form(Form $form): Form
+    public static function getPermissionPrefixes(): array
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return [
+            'view',
+            'view_any',
+        ];
     }
 
     public static function table(Table $table): Table
@@ -53,15 +55,25 @@ class JabatanKemenagResource extends Resource
 
             ],layout: FiltersLayout::AboveContentCollapsible)
             ->actions([
-               EditAction::make(),
-               DeleteAction::make(),
+            //    EditAction::make(),
+            //    DeleteAction::make(),
             ])
             ->bulkActions([
-               DeleteBulkAction::make(),
+            //    DeleteBulkAction::make(),
             ]);
     }
 
     public static function canCreate(): bool
+    {
+        return false;
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return false;
+    }
+
+    public static function canDelete(Model $record): bool
     {
         return false;
     }

@@ -17,7 +17,7 @@ class JenjangPendidikanResource extends Resource
 {
     protected static ?string $model = JenjangPendidikan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-academic-cap';
 
     public static function getNavigationGroup(): ?string
     {
@@ -28,8 +28,8 @@ class JenjangPendidikanResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('kode')->required(),
-                Forms\Components\TextInput::make('nama')->required(),
+                Forms\Components\TextInput::make('kode')->required()->columnSpanFull(),
+                Forms\Components\TextInput::make('nama')->required()->columnSpanFull(),
             ]);
     }
 

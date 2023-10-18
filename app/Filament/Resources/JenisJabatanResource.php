@@ -17,7 +17,7 @@ class JenisJabatanResource extends Resource
 {
     protected static ?string $model = JenisJabatan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-building-library';
 
     public static function getNavigationGroup(): ?string
     {
@@ -30,8 +30,8 @@ class JenisJabatanResource extends Resource
             ->schema([
                 Forms\Components\Grid::make(1)
                     ->schema([
-                        Forms\Components\TextInput::make('kode')->required(),
-                        Forms\Components\TextInput::make('nama')->required(),
+                        Forms\Components\TextInput::make('kode')->required()->columnSpanFull(),
+                        Forms\Components\TextInput::make('nama')->required()->columnSpanFull(),
                     ])
             ]);
     }

@@ -7,7 +7,11 @@ use App\Models\Jabatan;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Textarea;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\JabatanResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -19,7 +23,7 @@ class JabatanResource extends Resource
 {
     protected static ?string $model = Jabatan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-chart-bar';
 
     public static function getNavigationGroup(): ?string
     {
@@ -30,20 +34,11 @@ class JabatanResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Grid::make(1)
-                    ->schema([
-                        Forms\Components\TextInput::make('nama')->placeholder('Nama Jabatan')->required(),
-                    ]),
-                Forms\Components\Grid::make(6)
-                    ->schema([
-                        Forms\Components\TextInput::make('bobot_sks')->numeric()->placeholder('Masukan Bobot SKS')->required(),
-                    ]),
-                Forms\Components\Grid::make(1)
-                    ->schema([
-                        Forms\Components\Select::make('jenis_jabatans_id')->relationship('JenisJabatan', 'nama')->preload()->searchable()->required(),
-                        Forms\Components\Textarea::make('keterangan')->placeholder('Isi Keterangan'),
-                        Forms\Components\Toggle::make('aktif'),
-                    ])
+               TextInput::make('nama')->placeholder('Nama Jabatan')->required(),
+               TextInput::make('bobot_sks')->numeric()->placeholder('Masukan Bobot SKS')->required(),
+               Select::make('jenis_jabatans_id')->relationship('JenisJabatan', 'nama')->preload()->searchable()->required(),
+               Textarea::make('keterangan')->placeholder('Isi Keterangan'),
+               Toggle::make('aktif'),
             ]);
     }
 

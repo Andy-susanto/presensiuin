@@ -6,6 +6,7 @@ use App\Filament\Resources\LevelJabatanResource\Pages;
 use App\Filament\Resources\LevelJabatanResource\RelationManagers;
 use App\Models\LevelJabatan;
 use App\Models\LevelJabatanKemenag;
+use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class LevelJabatanResource extends Resource
+class LevelJabatanResource extends Resource implements HasShieldPermissions
 {
     protected static ?string $model = LevelJabatanKemenag::class;
 
@@ -25,6 +26,15 @@ class LevelJabatanResource extends Resource
     {
         return 'Data Kemenag';
     }
+
+    public static function getPermissionPrefixes(): array
+    {
+        return [
+            'view',
+            'view_any',
+        ];
+    }
+
 
     public static function table(Table $table): Table
     {
@@ -37,11 +47,11 @@ class LevelJabatanResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                // Tables\Actions\EditAction::make(),
+                // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                // Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 

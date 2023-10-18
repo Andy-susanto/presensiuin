@@ -10,6 +10,8 @@ use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Filament\Tables;
 use Filament\Tables\Filters\Layout;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Grouping\Group;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -17,7 +19,7 @@ class UnitKerjaResource extends Resource
 {
     protected static ?string $model = UnitKerja::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-building-office';
 
     public static function getNavigationGroup(): ?string
     {
@@ -40,16 +42,21 @@ class UnitKerjaResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->groups([
+                Group::make('KategoriUnitKerja.nama_kategori')
+                    ->label('KATEGORI')
+                    ->collapsible()
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('nama_unit_kerja')->searchable(),
                 Tables\Columns\TextColumn::make('lokasi')->searchable(),
-                Tables\Columns\TextColumn::make('KategoriUnitKerja.nama_kategori')->searchable(),
+                Tables\Columns\TextColumn::make('KategoriUnitKerja.nama_kategori')->searchable()->badge()->color('success'),
             ])
             ->filters(
                 [
                     Tables\Filters\SelectFilter::make('kategori_unit_kerjas_id')->label('Kategori Unit Kerja')->relationship('KategoriUnitKerja', 'nama_kategori')->searchable()->columnSpan(12)
                 ],
-                layout: Layout::AboveContent,
+                layout: FiltersLayout::AboveContent,
             )
             ->actions([
                 Tables\Actions\EditAction::make(),

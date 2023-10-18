@@ -4,6 +4,7 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 
+use App\Models\Alasan;
 use App\Models\Biodata;
 use App\Models\HariKerja;
 use App\Models\Jabatan;
@@ -22,6 +23,7 @@ use App\Models\StatusKepegawaian;
 use App\Models\StatusKerja;
 use App\Models\User;
 use App\Models\WaktuPresensi;
+use App\Policies\AlasanPolicy;
 use App\Policies\BiodataPolicy;
 use App\Policies\FirewallPolicy;
 use App\Policies\JabatanFungsionalPolicy;
@@ -79,7 +81,8 @@ class AuthServiceProvider extends ServiceProvider
         LevelJabatanKemenag::class => LevelJabatanKemenagPolicy::class,
         KategoriUnitKerja::class => KategoriUnitKerjaPolicy::class,
         WaktuPresensi::class => WaktuPresensiPolicy::class,
-        Presensi::class => PresensiPolicy::class
+        Presensi::class => PresensiPolicy::class,
+        Alasan::class => AlasanPolicy::class
     ];
 
     /**

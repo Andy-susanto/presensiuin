@@ -14,6 +14,7 @@
         "bezhansalleh/filament-shield": "^3.0@beta",
         "calendarific/php-calendarific": "^2.0",
         "filament/filament": "^3.0",
+        "filament/infolists": "^3.0-stable",
         "guzzlehttp/guzzle": "^7.2",
         "hasnayeen/themes": "^3.0",
         "husam-tariq/filament-timepicker": "^3.0",

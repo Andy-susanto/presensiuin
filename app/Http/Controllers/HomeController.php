@@ -25,7 +25,6 @@ class HomeController extends Controller
         $this->bisaPresensi = [];
         $this->waktuPresensi = null;
         $this->pesan = null;
-        parent::__construct();
     }
 
     public function index()

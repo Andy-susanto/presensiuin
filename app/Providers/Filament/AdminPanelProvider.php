@@ -35,6 +35,7 @@ class AdminPanelProvider extends PanelProvider
             ->favicon(asset('image/favicon.svg'))
             ->font('Poppins')
             ->login(Login::class)
+            ->sidebarFullyCollapsibleOnDesktop()
             ->colors([
                 'primary' => Color::Amber,
             ])

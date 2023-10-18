@@ -14,19 +14,24 @@ use BezhanSalleh\FilamentShield\Traits\HasFilamentShield;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
+use Exception;
 
 class DataKepegawaian extends Page implements HasForms
 {
     use InteractsWithForms;
     use HasPageShield;
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-s-user-group';
     public $data;
     protected Pegawai $pegawai;
     protected static string $view = 'filament.pages.data-kepegawaian';
 
     public static function shouldRegisterNavigation(): bool
     {
-        return auth()->user()->can('page_DataKepegawaian');
+        $akses = false;
+        if(auth()->user()->can('page_DataKepegawaian') && !in_array('super_admin',auth()->user()->getRoleNames()->toArray())){
+            $akses = true;
+        }
+        return $akses;
     }
 
     public static function getNavigationGroup(): ?string
@@ -36,6 +41,7 @@ class DataKepegawaian extends Page implements HasForms
 
     public function mount()
     {
+        abort_unless(!in_array('super_admin',auth()->user()->getRoleNames()->toArray()),403);
         abort_unless(auth()->user()->can('page_DataKepegawaian'), 403);
         $this->pegawai = Pegawai::where('id', auth()->user()->pegawai_id)->first() ?? new Pegawai();
         $this->form->fill([
@@ -43,7 +49,7 @@ class DataKepegawaian extends Page implements HasForms
             'gelar_depan' => $this->pegawai->gelar_depan,
             'gelar_belakang' => $this->pegawai->gelar_belakang,
             'nip' => $this->pegawai->nip,
-            'unit_kerjas_id' => $this->pegawai->unit_kerjas_id,
+            'unit_kerjas_id' => $this->pegawai?->unit_kerjas_id,
             'status_kerjas_id' => $this->pegawai->status_kerjas_id,
             'pangkat_golongans_id' => $this->pegawai->pangkat_golongans_id,
             'tmt_sk' => $this->pegawai->tmt_sk,

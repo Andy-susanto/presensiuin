@@ -17,7 +17,7 @@ class PangkatGolonganResource extends Resource
 {
     protected static ?string $model = PangkatGolongan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-star';
 
     public static function getNavigationGroup(): ?string
     {

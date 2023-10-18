@@ -40,11 +40,16 @@ class Biodata extends Page implements HasForms
 
     public static function shouldRegisterNavigation(): bool
     {
-        return auth()->user()->can('page_Biodata');
+        $akses = false;
+        if(auth()->user()->can('page_Biodata') && !in_array('super_admin',auth()->user()->getRoleNames()->toArray())){
+            $akses = true;
+        }
+        return $akses;
     }
 
     public function mount(): void
     {
+        abort_unless(!in_array('super_admin',auth()->user()->getRoleNames()->toArray()), 403);
         abort_unless(auth()->user()->can('page_Biodata'), 403);
         $this->biodata = ModelsBiodata::where('pegawais_id', auth()->user()->pegawai_id)->first() ?? new ModelsBiodata();
         $this->form->fill([

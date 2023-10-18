@@ -18,7 +18,7 @@ class LiburResource extends Resource
 {
     protected static ?string $model = Libur::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-clock';
 
     public static function getNavigationGroup(): ?string
     {
@@ -29,8 +29,8 @@ class LiburResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\DatePicker::make('tanggal')->required(),
-                Forms\Components\TextInput::make('libur')->required(),
+                Forms\Components\DatePicker::make('tanggal')->required()->columnSpanFull(),
+                Forms\Components\TextInput::make('libur')->required()->columnSpanFull(),
             ]);
     }
 

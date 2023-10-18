@@ -254,10 +254,10 @@
         $('#pegawai_id').attr('disabled', 'disabled');
         $('.capture').attr('disabled', 'disabled');
         Promise.all([
-            faceapi.nets.ssdMobilenetv1.loadFromUri("/models"),
+            /*faceapi.nets.ssdMobilenetv1.loadFromUri("/models"),
             faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
             faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
-            console.log('sedang Loading')
+            console.log('sedang Loading')*/
         ]).then(startWebcam).then(hideLoading);
         $('#refresh').on('click', function() {
             location.reload();

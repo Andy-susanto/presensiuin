@@ -12,13 +12,14 @@ use Filament\Tables\Filters\Layout;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\KategoriUnitKerjaResource\Pages;
+use Filament\Tables\Enums\FiltersLayout;
 use App\Filament\Resources\KategoriUnitKerjaResource\RelationManagers;
 
 class KategoriUnitKerjaResource extends Resource
 {
     protected static ?string $model = KategoriUnitKerja::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-inbox-stack';
 
     public static function getNavigationGroup(): ?string
     {
@@ -29,8 +30,8 @@ class KategoriUnitKerjaResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nama_kategori')->required(),
-                Forms\Components\Select::make('jenis_unit_kerjas_id')->relationship('JenisUnitKerja', 'nama')->searchable()->preload()->required()
+                Forms\Components\TextInput::make('nama_kategori')->required()->columnSpanFull(),
+                Forms\Components\Select::make('jenis_unit_kerjas_id')->relationship('JenisUnitKerja', 'nama')->searchable()->preload()->required()->columnSpanFull()
             ]);
     }
 
@@ -44,9 +45,9 @@ class KategoriUnitKerjaResource extends Resource
             ->filters(
                 [
 
-                    Tables\Filters\SelectFilter::make('jenis_unit_kerjas_id')->label('Jenis Unit Kerja')->relationship('JenisUnitKerja', 'nama')->searchable()->columnSpan(12)
+                    Tables\Filters\SelectFilter::make('jenis_unit_kerjas_id')->label('Jenis Unit Kerja')->relationship('JenisUnitKerja', 'nama')->searchable()->columnSpan(12)->preload()
                 ],
-                layout: Layout::AboveContent,
+                layout: FiltersLayout::AboveContent,
             )
             ->actions([
                 Tables\Actions\EditAction::make(),

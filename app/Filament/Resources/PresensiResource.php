@@ -17,7 +17,7 @@ use Filament\Tables\Enums\FiltersLayout;
 
 class PresensiResource extends Resource
 {
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-clipboard-document-check';
 
     public static function getNavigationGroup(): ?string
     {

@@ -4,11 +4,13 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Models\Pegawai;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -17,31 +19,32 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-users';
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Settings';
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('pegawai_id')
-                    ->maxLength(65),
+                Forms\Components\Select::make('pegawai_id')
+                     ->relationship('pegawai','nama_pegawai')
+                     ->label('pegawai')
+                     ->preload()
+                     ->searchable()
+                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('google_id')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('theme')
-                    ->maxLength(255)
-                    ->default('default'),
-                Forms\Components\TextInput::make('theme_color')
                     ->maxLength(255),
             ]);
     }
@@ -50,7 +53,10 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('pegawai_id')
+                Tables\Columns\TextColumn::make('pegawai.nama_lengkap')
+                    ->state(function(User $record){
+                        return $record->pegawai->nama_lengkap ?? '- Tidak ada data pegawai -';
+                    })
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),

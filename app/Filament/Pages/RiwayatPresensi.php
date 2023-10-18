@@ -32,11 +32,16 @@ class RiwayatPresensi extends Page implements HasTable
 
     public static function shouldRegisterNavigation(): bool
     {
-        return auth()->user()->can('page_RiwayatPresensi');
+        $akses = false;
+        if(auth()->user()->can('page_RiwayatPresensi') && !in_array('super_admin',auth()->user()->getRoleNames()->toArray())){
+            $akses = true;
+        }
+        return $akses;
     }
 
     public function mount()
     {
+        abort_unless(!in_array('super_admin',auth()->user()->getRoleNames()->toArray()), 403);
         abort_unless(auth()->user()->can('page_RiwayatPresensi'), 403);
     }
 

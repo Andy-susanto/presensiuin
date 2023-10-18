@@ -17,7 +17,7 @@ class JabfungResource extends Resource
 {
     protected static ?string $model = Jabfung::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-paper-clip';
 
     protected static ?string $navigationLabel = 'Jabatan Fungsional';
     protected static ?string $label = 'Jabatan Fungsional';
@@ -33,10 +33,11 @@ class JabfungResource extends Resource
             ->schema([
                 Forms\Components\Textarea::make('nama')
                     ->required()
-                    ->maxLength(65535),
+                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('angka_kredit')
                     ->numeric()
-                    ->required(),
+                    ->required()
+                    ->columnSpanFull()
             ]);
     }
 
