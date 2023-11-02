@@ -5,7 +5,7 @@
     <form wire:submit="submit">
         {{ $this->form }}
 
-        <x-filament::button class="mt-10" wire:loading.attr="disabled" :color="'success'" :icon="'heroicon-o-save'" type="submit">
+        <x-filament::button class="mt-10" wire:loading.attr="disabled" :color="'success'" :icon="'heroicon-o-check'" type="submit">
             Simpan Perubahan
         </x-filament::button>
         <div wire:loading wire:target="submit">

@@ -48,9 +48,8 @@ class RoleResource extends Resource implements HasShieldPermissions
                                 Forms\Components\TextInput::make('name')
                                     ->label(__('filament-shield::filament-shield.field.name'))
                                     ->required()
-                                    ->disabled(function($state){
-                                        if($state == 'super_admin')
-                                        {
+                                    ->disabled(function ($state) {
+                                        if ($state == 'super_admin') {
                                             return true;
                                         }
 
@@ -236,7 +235,7 @@ class RoleResource extends Resource implements HasShieldPermissions
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()->visible(function(Model $record){
+                Tables\Actions\DeleteAction::make()->visible(function (Model $record) {
                     if ($record->name == 'super_admin') {
                         return false;
                     }
@@ -247,7 +246,7 @@ class RoleResource extends Resource implements HasShieldPermissions
                 Tables\Actions\DeleteBulkAction::make(),
             ])
             ->checkIfRecordIsSelectableUsing(
-                fn(Model $record): bool => $record->name != 'super_admin'
+                fn (Model $record): bool => $record->name != 'super_admin'
             );
     }
 

@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/login',function(){
+Route::get('/login', function () {
     return redirect(route('filament.admin.auth.login'));
-});
+})->name('login');
 Route::post('/presensi/pegawai', [HomeController::class, 'presensi'])->name('presensi');
 Route::controller(LoginWithGoogleController::class)->group(function () {
     Route::get('authorized/google', 'redirectToGoogle')->name('auth.google');

@@ -17,9 +17,10 @@ class CalendarJOb implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct()
+    public $tanggal;
+    public function __construct($tanggal)
     {
-        //
+        $this->tanggal = $tanggal;
     }
 
     /**
@@ -27,6 +28,6 @@ class CalendarJOb implements ShouldQueue
      */
     public function handle(): void
     {
-        Artisan::call('calendar:generate');
+        Artisan::call('calendar:generate',['tanggal'=>$this->tanggal]);
     }
 }

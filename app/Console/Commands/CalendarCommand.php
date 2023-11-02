@@ -15,7 +15,7 @@ class CalendarCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'calendar:generate';
+    protected $signature = 'calendar:generate {tanggal}';
 
     /**
      * The console command description.
@@ -29,10 +29,14 @@ class CalendarCommand extends Command
      */
     public function handle()
     {
+
+        // print($this->argument('tanggal'));
+
         $key = '2393075340a011aaef4df972e34a20afe2ea866d';
         $country = 'ID';
-        $year = Carbon::now()->format('Y');
-        $month = Carbon::now()->format('m');
+        $tanggal = Carbon::parse($this->argument('tanggal'));
+        $year = $tanggal->format('Y');
+        $month = $tanggal->format('m');
         $day = null;
         $location = null;
         $types = ['national'];
@@ -46,13 +50,7 @@ class CalendarCommand extends Command
             $location,
             $types
         );
-
-
-        // print_r($ciapi['response']['holidays'][0]);
         foreach ($ciapi['response']['holidays'] as $key => $libur) {
-
-            print_r($libur['name']);
-            print_r($libur['date']['datetime']['day']);
 
             Libur::updateOrCreate(
                 ['tanggal' => $libur['date']['iso']],

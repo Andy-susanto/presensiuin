@@ -2,11 +2,14 @@
 
 namespace App\Filament\Resources\LiburResource\Pages;
 
-use App\Filament\Resources\LiburResource;
 use App\Jobs\CalendarJOb;
 use Filament\Pages\Actions;
-use Filament\Resources\Pages\ManageRecords;
+use Filament\Actions\Action;
+use Filament\Actions\CreateAction;
 use Filament\Notifications\Notification;
+use App\Filament\Resources\LiburResource;
+use Filament\Forms\Components\DatePicker;
+use Filament\Resources\Pages\ManageRecords;
 
 class ManageLiburs extends ManageRecords
 {
@@ -15,16 +18,24 @@ class ManageLiburs extends ManageRecords
     protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make(),
-            Actions\Action::make('update_hari_libur')
-                ->label('Update data libur bulan ini')
-                ->action(function () {
+            CreateAction::make(),
+            Action::make('update_hari_libur')
+                ->icon('heroicon-s-clock')
+                ->label('Update data libur')
+                ->form([
+                    DatePicker::make('tanggal')
+                        ->label('Pilih Bulan Tahun')
+                        ->native(false)
+                        ->displayFormat('m/Y')
+                        ->closeOnDateSelection()
+                ])
+                ->action(function (array $data) {
                     Notification::make()
                         ->title('Selesai')
                         ->success()
                         ->send();
-                    CalendarJOb::dispatchAfterResponse();
-                    return redirect(request()->header('Referer'));
+                    CalendarJOb::dispatchAfterResponse($data['tanggal']);
+                    redirect(request()->headers->get('referer'));
                 })
         ];
     }
